@@ -1,0 +1,17 @@
+{
+  "name": "versa-ai-gateway",
+  "version": "1.0.0",
+  "description": "Versa AI Gateway prototype with NVIDIA Z.ai GLM-5.3 backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:env": "node -r dotenv/config server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}

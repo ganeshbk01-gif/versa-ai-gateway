@@ -1,0 +1,24 @@
+HOW TO SET YOUR NVIDIA API KEY
+==============================
+
+1. Open the file named  .env  in this folder
+   (if you can't see it, see the note below)
+
+2. Replace this line:
+      NVIDIA_API_KEY=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
+
+   With your real key, e.g.:
+      NVIDIA_API_KEY=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
+
+3. Save the file.
+
+4. Then run the server:
+      node -r dotenv/config server.js
+
+
+NOTE — Can't see the .env file?
+---------------------------------
+On Mac:   Press Cmd + Shift + . (period) in Finder to show hidden files.
+On Windows: In File Explorer → View → check "Hidden items".
+
+The file is named  .env  (starts with a dot — that's why it's hidden).
