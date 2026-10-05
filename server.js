@@ -19,7 +19,7 @@ const path    = require('path');
 const url     = require('url');
 
 // ── Config ────────────────────────────────────────────────────────────────────
-const PORT             = process.env.PORT || 3000;
+const PORT             = process.env.PORT || 8080;
 const NVIDIA_API_KEY   = process.env.NVIDIA_API_KEY || '';
 const NVIDIA_BASE_URL  = 'https://integrate.api.nvidia.com/v1';
 const NVIDIA_MODEL     = 'z-ai/glm-5.3'; // default model
