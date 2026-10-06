@@ -197,6 +197,32 @@ input[type=text],input[type=number],input[type=password],input[type=email],selec
 .security-rule:last-child{border-bottom:none;}
 .rule-info{flex:1;min-width:0;}
 .rule-name{font-size:12px;font-weight:600;color:var(--txt);}
+/* ── Login Screen ───────────────────────────────────────────────── */
+.login-overlay{position:fixed;inset:0;background:#F4F5F7;z-index:9999;display:flex;align-items:center;justify-content:center;}
+.login-overlay.hidden{display:none;}
+.login-card{background:#fff;border:1px solid var(--border);border-radius:var(--r3);box-shadow:var(--sh3);width:100%;max-width:400px;padding:40px 44px;}
+.login-logo{display:flex;justify-content:center;margin-bottom:32px;}
+.login-title{font-size:22px;font-weight:700;color:var(--txt);text-align:center;margin-bottom:28px;}
+.login-pw-wrap{position:relative;}
+.login-pw-wrap input{padding-right:40px;}
+.login-eye-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;padding:0;cursor:pointer;color:var(--txt3);height:auto;width:auto;display:flex;align-items:center;line-height:1;}
+.login-eye-btn:hover{color:var(--txt2);background:none;}
+.login-remember{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txt2);cursor:pointer;user-select:none;}
+.login-remember input[type=checkbox]{width:14px;height:14px;accent-color:var(--primary);cursor:pointer;flex-shrink:0;margin:0;}
+.login-error-box{background:var(--err-lt);border:1px solid #FFBDAD;border-radius:var(--r);padding:10px 14px;font-size:12px;color:var(--err-txt);margin-bottom:16px;display:none;}
+.login-error-box.show{display:block;}
+.login-submit-btn{width:100%;height:38px;font-size:14px;font-weight:600;margin-top:20px;justify-content:center;}
+.login-spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:lspin .7s linear infinite;}
+@keyframes lspin{to{transform:rotate(360deg);}}
+/* ── Admin dropdown menu ────────────────────────────────────────── */
+.admin-dd-wrap{position:relative;}
+.admin-menu{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--border);border-radius:var(--r2);box-shadow:var(--sh3);min-width:180px;z-index:500;display:none;padding:4px 0;}
+.admin-menu.open{display:block;}
+.admin-menu-item{display:flex;align-items:center;gap:10px;padding:9px 16px;font-size:13px;color:var(--txt);cursor:pointer;transition:background .12s;}
+.admin-menu-item:hover{background:#F4F5F7;}
+.admin-menu-item.danger{color:var(--err);}
+.admin-menu-item.danger:hover{background:#FFF0EE;}
+.admin-menu-divider{height:1px;background:var(--border);margin:4px 0;}
 .rule-desc{font-size:11px;color:var(--txt2);margin-top:2px;}
 .rule-action select{width:100px;height:28px;font-size:11px;}
 .routing-flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:0 auto 24px;max-width:280px;}
@@ -257,6 +283,44 @@ input[type=text],input[type=number],input[type=password],input[type=email],selec
 </head>
 <body>
 
+<!-- ═══ LOGIN OVERLAY ══════════════════════════════════════════════════ -->
+<div class="login-overlay hidden" id="login-overlay">
+  <div class="login-card">
+    <div class="login-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1250 363" height="36" style="display:block;">
+        <style>tspan{white-space:pre}.shp0{fill:#52545a}.shp1{fill:#a2d15d}.shp2{fill:#009ddd}</style>
+        <path class="shp0" d="M579.88 90.16L714.28 90.16L714.28 118.65L611.72 118.65L611.72 165.78L702.63 165.78L702.63 194.26L611.72 194.26L611.72 242.94L715.57 242.94L715.57 271.42L579.88 271.42L579.88 90.16ZM823.37 180.01C846.15 180.01 860.67 168.11 860.67 149.72L860.67 149.2C860.67 129.78 846.67 119.17 823.11 119.17L776.75 119.17L776.75 180.01L823.37 180.01ZM744.9 90.16L825.69 90.16C848.5 90.16 866.35 96.9 878 108.29C887.59 118.13 893.03 131.6 893.03 147.39L893.03 147.91C893.03 177.7 875.16 195.56 850.04 202.8L898.98 271.42L861.18 271.42L816.65 208.24L776.75 208.24L776.75 271.42L744.9 271.42L744.9 90.16ZM912.7 245.01L931.85 222.23C949.21 237.24 966.82 245.8 989.08 245.8C1008.76 245.8 1021.19 236.48 1021.19 223L1021.19 222.49C1021.19 209.55 1013.95 202.54 980.27 194.78C941.7 185.46 919.94 174.07 919.94 140.66L919.94 140.14C919.94 109.07 945.84 87.58 981.83 87.58C1008.24 87.58 1029.21 95.6 1047.61 110.36L1030.52 134.45C1014.21 122.28 997.9 115.8 981.32 115.8C962.67 115.8 951.79 125.38 951.79 137.29L951.79 137.81C951.79 151.8 960.07 158.01 995.04 166.29C1033.36 175.61 1053.04 189.35 1053.04 219.38L1053.04 219.9C1053.04 253.82 1026.38 274.02 988.3 274.02C960.59 264.44 934.45 264.44 912.7 245.01ZM1123.85 199.44L1154.98 126.39L1185.67 199.44L1123.85 199.44ZM1060.54 271.42L1093.17 271.42L1111.81 227.67L1197.52 227.67L1215.91 271.42L1249.57 271.42L1174.85 100.39C1171.53 92.82 1163.88 87.58 1155.07 87.58C1146.25 87.58 1138.6 92.83 1135.29 100.4L1060.54 271.42ZM453.57 261.3C456.67 268.83 463.85 274.04 472.38 274.04C480.81 274.04 488.05 268.97 491.09 261.58L561.6 90.16L527.04 90.16L472.22 232.75L417.49 90.16L382.92 90.16L453.57 261.3Z"/>
+        <path class="shp1" d="M175.18,132.54c-21.01,22.1 -88.68,-14.13 -147.64,-40.53c-9.35,-4.19 -18.05,-0.33 -21.94,3.83c-10.48,11.17 -3.04,23.22 -3.04,23.22l132.86,230.11c0,0 6.38,12.89 21.75,12.89c7.11,0 16.24,-2.95 21.85,-12.92l2.22,-3.84v-227.6c0,6.69 -2.82,11.42 -6.07,14.84z"/>
+        <path class="shp2" d="M307.98 47.92C274.65 9.1 194.1 -8.36 164.13 2.86C141.01 11.52 126.13 36.52 158.05 77.13C174.85 98.51 181.25 108.24 181.25 117.71L181.25 345.3L312.47 117.97C328.6 86.97 323.99 66.56 307.98 47.92Z"/>
+      </svg>
+    </div>
+    <div class="login-title">Sign in to Versa</div>
+    <div class="login-error-box" id="login-error-box"></div>
+    <div class="form-group">
+      <label class="form-label" for="login-username">Login Name <span class="req">*</span></label>
+      <input type="text" id="login-username" placeholder="Enter login name" autocomplete="username" oninput="authUpdateBtn()">
+      <div class="form-error" id="login-username-err">Login name is required.</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="login-password">Password <span class="req">*</span></label>
+      <div class="login-pw-wrap">
+        <input type="password" id="login-password" placeholder="Enter password" autocomplete="current-password" oninput="authUpdateBtn()" onkeydown="if(event.key==='Enter')doLogin()">
+        <button class="login-eye-btn" type="button" id="login-eye" onclick="toggleLoginPw()" title="Show/hide password">
+          <svg id="login-eye-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div class="form-error" id="login-password-err">Password is required.</div>
+    </div>
+    <div style="display:flex;align-items:center;margin-top:2px;">
+      <label class="login-remember">
+        <input type="checkbox" id="login-remember">
+        Remember me
+      </label>
+    </div>
+    <button class="btn-primary login-submit-btn" id="login-btn" onclick="doLogin()" disabled>Login</button>
+  </div>
+</div>
+
 <!-- ═══ GLOBAL APP HEADER ══════════════════════════════════════════════ -->
 <div class="app-header" id="app-header">
   <div class="app-header-brand">
@@ -272,10 +336,23 @@ input[type=text],input[type=number],input[type=password],input[type=email],selec
     <input type="text" placeholder="Search settings...">
   </div>
   <div class="app-header-right">
-    <div class="app-header-admin">
-      <div class="admin-avatar">A</div>
-      <span class="admin-name">Administrator</span>
-      <span class="admin-chevron">▾</span>
+    <div class="admin-dd-wrap" id="admin-dd-wrap">
+      <div class="app-header-admin" onclick="toggleAdminMenu(event)">
+        <div class="admin-avatar">A</div>
+        <span class="admin-name">Administrator</span>
+        <span class="admin-chevron">▾</span>
+      </div>
+      <div class="admin-menu" id="admin-menu">
+        <div class="admin-menu-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile
+        </div>
+        <div class="admin-menu-divider"></div>
+        <div class="admin-menu-item danger" onclick="doLogout()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Logout
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -8632,9 +8709,131 @@ function _agPopStep4(c){
   </div>`;
 }
 
+// ====== AUTH ======
+const _AUTH_LS = 'versa_auth_v1';
+const _AUTH_SS = 'versa_sess_v1';
+const _VALID_U = 'admin';
+const _VALID_P = 'admin123';
+
+function authIsLoggedIn() {
+  try {
+    return localStorage.getItem(_AUTH_LS) === '1' || sessionStorage.getItem(_AUTH_SS) === '1';
+  } catch(e) { return false; }
+}
+
+function authCheckAndShow() {
+  if (authIsLoggedIn()) {
+    document.getElementById('login-overlay').classList.add('hidden');
+  } else {
+    document.getElementById('login-overlay').classList.remove('hidden');
+  }
+}
+
+function authUpdateBtn() {
+  const u = (document.getElementById('login-username').value || '').trim();
+  const p = document.getElementById('login-password').value || '';
+  document.getElementById('login-btn').disabled = !(u && p);
+}
+
+function toggleLoginPw() {
+  const inp = document.getElementById('login-password');
+  const icon = document.getElementById('login-eye-icon');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    // eye-off icon
+    icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  } else {
+    inp.type = 'password';
+    // eye icon
+    icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+  }
+}
+
+function doLogin() {
+  const u = (document.getElementById('login-username').value || '').trim();
+  const p = document.getElementById('login-password').value || '';
+  const errBox  = document.getElementById('login-error-box');
+  const uErr    = document.getElementById('login-username-err');
+  const pErr    = document.getElementById('login-password-err');
+  const uInp    = document.getElementById('login-username');
+  const pInp    = document.getElementById('login-password');
+
+  // Reset
+  errBox.classList.remove('show');
+  uErr.classList.remove('show'); uInp.classList.remove('err');
+  pErr.classList.remove('show'); pInp.classList.remove('err');
+
+  // Required validation
+  let ok = true;
+  if (!u) { uErr.classList.add('show'); uInp.classList.add('err'); ok = false; }
+  if (!p) { pErr.classList.add('show'); pInp.classList.add('err'); ok = false; }
+  if (!ok) return;
+
+  // Loading state
+  const btn = document.getElementById('login-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="login-spinner"></span>&nbsp;Signing in…';
+
+  setTimeout(function() {
+    if (u === _VALID_U && p === _VALID_P) {
+      const remember = document.getElementById('login-remember').checked;
+      try {
+        if (remember) { localStorage.setItem(_AUTH_LS, '1'); }
+        else          { sessionStorage.setItem(_AUTH_SS, '1'); }
+      } catch(e) {}
+      document.getElementById('login-overlay').classList.add('hidden');
+    } else {
+      errBox.textContent = 'Invalid login name or password.';
+      errBox.classList.add('show');
+      pInp.value = '';
+      btn.disabled = false;
+      btn.textContent = 'Login';
+      authUpdateBtn();
+    }
+  }, 750);
+}
+
+function doLogout() {
+  try {
+    localStorage.removeItem(_AUTH_LS);
+    sessionStorage.removeItem(_AUTH_SS);
+  } catch(e) {}
+  closeAdminMenu();
+  // Reset login form
+  const uInp = document.getElementById('login-username');
+  const pInp = document.getElementById('login-password');
+  if (uInp) uInp.value = '';
+  if (pInp) { pInp.value = ''; pInp.type = 'password'; }
+  const btn = document.getElementById('login-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Login'; }
+  document.getElementById('login-error-box').classList.remove('show');
+  document.getElementById('login-username-err').classList.remove('show');
+  document.getElementById('login-password-err').classList.remove('show');
+  // Restore eye icon
+  const icon = document.getElementById('login-eye-icon');
+  if (icon) icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+  document.getElementById('login-overlay').classList.remove('hidden');
+}
+
+function toggleAdminMenu(e) {
+  e.stopPropagation();
+  document.getElementById('admin-menu').classList.toggle('open');
+}
+
+function closeAdminMenu() {
+  const m = document.getElementById('admin-menu');
+  if (m) m.classList.remove('open');
+}
+
+document.addEventListener('click', function(e) {
+  const wrap = document.getElementById('admin-dd-wrap');
+  if (wrap && !wrap.contains(e.target)) closeAdminMenu();
+});
+
 // ====== INIT ======
 // Highlight Configure rail; keep subnav closed; show neutral landing
 navigate('configure-home');
+authCheckAndShow();
 </script>
 </body>
 </html>
